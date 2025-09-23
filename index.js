@@ -27,6 +27,14 @@ app.get('/tasks', (req, res)=>{
     res.json(task);
 })
 
+app.delete('/task/:id', (req, res) =>{
+    const id = parseInt(req.params.id);
+    const taskFound = task.find((t) => t.id === id);
+    if(!taskFound) return res.status(404).json({message: 'Task not found'});
+    task = task.filter((t) => t.id !==id);
+    res.sendStatus(204);
+})
+
 
 
 
