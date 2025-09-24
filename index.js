@@ -13,13 +13,13 @@ let task = [
         id: 1, 
         title: 'tarea 1',
         description: 'descripcion de la tarea 1',
-        priority: 'hard'
+        priorityTask: 'High'
     },
     {
         id: 2, 
         title: 'tarea 2',
         description: 'descripcion de la tarea 2',
-        priority: 'medium'
+        priorityTask: 'Medium'
     }, 
 ];
 
@@ -36,12 +36,13 @@ app.delete('/task/:id', (req, res) =>{
 })
 
 app.post('/createTask', (req, res) => {
-    const { title, description } = req.body;
+    const { title, description, priorityTask } = req.body;
 
     const newTask = {
         id: task.length + 1,
         title,
-        description
+        description,
+        priorityTask
     };
     task.push(newTask);
     res.status(201).json(newTask);
@@ -55,13 +56,14 @@ app.get('/task/:id', (req, res) => {
 
 app.put('/task/:id', (req, res) => {
     const { id } = req.params;
-    const { title, description } = req.body;
+    const { title, description, priorityTask } = req.body;
     const editTask = task.findIndex(t => t.id === Number(id));
 
     task[editTask] = {
         ...task[editTask],
         title: title ?? task[editTask].title,
         description: description ?? task[editTask].description,
+        priorityTask: priorityTask ?? task[editTask].task[editTask]
     };
     res.json(task[editTask])
 
