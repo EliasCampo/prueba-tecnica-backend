@@ -47,6 +47,27 @@ app.post('/createTask', (req, res) => {
     res.status(201).json(newTask);
 });
 
+app.get('/task/:id', (req, res) => {
+    const { id } = req.params;
+    const taskFound = task.find(t => t.id === Number(id));
+    res.json(taskFound)
+})
+
+app.put('/task/:id', (req, res) => {
+    const { id } = req.params;
+    const { title, description } = req.body;
+    const editTask = task.findIndex(t => t.id === Number(id));
+
+    task[editTask] = {
+        ...task[editTask],
+        title: title ?? task[editTask].title,
+        description: description ?? task[editTask].description,
+    };
+    res.json(task[editTask])
+
+
+})
+
 
 
 
