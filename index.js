@@ -35,6 +35,18 @@ app.delete('/task/:id', (req, res) =>{
     res.sendStatus(204);
 })
 
+app.post('/createTask', (req, res) => {
+    const { title, description } = req.body;
+
+    const newTask = {
+        id: task.length + 1,
+        title,
+        description
+    };
+    task.push(newTask);
+    res.status(201).json(newTask);
+});
+
 
 
 
